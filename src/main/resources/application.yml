@@ -2,7 +2,7 @@ spring:
   jpa:
     show-sql: true
     hibernate:
-      ddl-auto: create
+      ddl-auto: update
     properties:
       hibernate:
         dialect: org.hibernate.dialect.PostgreSQLDialect
@@ -10,3 +10,11 @@ spring:
     url: jdbc:postgresql://localhost:5432/tenant_db
     username: postgres
     password: postgres
+  security:
+    user:
+      name: admin
+      password: admin
+
+logging:
+  level:
+    web: debug
