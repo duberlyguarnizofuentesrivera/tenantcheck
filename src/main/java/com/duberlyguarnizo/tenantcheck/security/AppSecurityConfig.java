@@ -25,7 +25,7 @@ public class AppSecurityConfig {
                 .requestMatchers("/api/v1/logged-user/**").authenticated()
                 .anyRequest().permitAll()
                 .and()
-                .formLogin()
+                .formLogin().successForwardUrl("/")
                 .and()
                 .build();
     }

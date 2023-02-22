@@ -9,7 +9,7 @@ import java.util.List;
 abstract class LoggedUserCreationDTOMapper {
 
     @BeforeMapping
-    protected void transformRolesFromEnum(LoggedUser user, @MappingTarget LoggedUserCreationDTO userCreationDTO) {
+    private void transformRolesFromEnum(LoggedUser user, @MappingTarget LoggedUserCreationDTO userCreationDTO) {
         List<UserRole> userRoles = user.getRoles();
         List<String> userCreationDTORoles = new ArrayList<>();
         for (UserRole role : userRoles) {

@@ -20,9 +20,45 @@ public class LoggedUserService {
         return repository.findAll();
     }
 
-    public void save(LoggedUser user) {
-        user.setPassword(pwdEncoder.encode(user.getPassword()));
-        repository.save(user);
+    public List<LoggedUser> getAllNotAdmin() {
+        List<UserRole> roles = List.of(UserRole.USER, UserRole.PAID_USER, UserRole.SUPER);
+        return repository.findByRolesIn(roles);
+    }
+
+    public List<LoggedUser> getAllNotSuper() {
+        List<UserRole> roles = List.of(UserRole.USER, UserRole.PAID_USER);
+        return repository.findByRolesIn(roles);
+    }
+
+    public List<LoggedUser> getAllPaidUsers() {
+        List<UserRole> roles = List.of(UserRole.PAID_USER);
+        return repository.findByRolesIn(roles);
+    }
+
+    public List<LoggedUser> getAllRegularUsers() {
+        List<UserRole> roles = List.of(UserRole.USER);
+        return repository.findByRolesIn(roles);
+    }
+
+    public List<LoggedUser> getAllSuperUsers() {
+        List<UserRole> roles = List.of(UserRole.SUPER);
+        return repository.findByRolesIn(roles);
+    }
+
+    public List<LoggedUser> getAllAdminUsers() {
+        List<UserRole> roles = List.of(UserRole.ADMIN);
+        return repository.findByRolesIn(roles);
+    }
+
+    public boolean save(LoggedUser user) {
+        LoggedUser tempUser = repository.findByUsername(user.getUsername());
+        LoggedUser tempUser2 = repository.findByEmail(user.getEmail());
+        if (tempUser == null && tempUser2 == null) {
+            user.setPassword(pwdEncoder.encode(user.getPassword()));
+            repository.save(user);
+            return true;
+        }
+        return false;
     }
 
     public LoggedUser getByName(String currentUserName) {

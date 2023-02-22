@@ -16,8 +16,8 @@ public class SecurityController {
         this.userService = userService;
     }
 
-    @GetMapping("/create-admin")
-    public void createAdmin() {
+    @GetMapping("/create-first-admin")
+    public void createFirstAdmin() {
         LoggedUser admin = new LoggedUser();
         admin.setName("Duberly");
         admin.setUsername("admin");
@@ -27,18 +27,5 @@ public class SecurityController {
         admin.setEmail("duberlygfr@gmail.com");
         admin.setActive(true);
         userService.save(admin);
-    }
-
-    @GetMapping("/create-super")
-    public void createSuper() {
-        LoggedUser superUser = new LoggedUser();
-        superUser.setName("Mijail");
-        superUser.setLastname("Potorosky");
-        superUser.setUsername("super");
-        superUser.setPassword("1801");
-        superUser.setRoles(List.of(UserRole.SUPER));
-        superUser.setEmail("mijail@gmail.com");
-        superUser.setActive(true);
-        userService.save(superUser);
     }
 }
